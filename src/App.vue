@@ -1,8 +1,10 @@
 <template>
 	<div id="app">
-		<router-view>
-
-		</router-view>
+		<el-scrollbar :native="false" ref="scrollbar">
+			<div class="app-wrap">
+				<router-view></router-view>
+			</div>
+		</el-scrollbar>
 	</div>
 </template>
 
@@ -13,4 +15,7 @@
 </script>
 
 <style>
+	.app-wrap{
+		height: calc(100vh - 1px);
+	}
 </style>
