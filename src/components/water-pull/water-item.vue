@@ -4,7 +4,9 @@
 			<div :class="`water-type-`+note.type">{{typeList[note.type]}}</div>
 			<div class="water-time">{{note.time}}</div>
 		</div>
-		<div class="water-name">{{note.name}}</div>
+		<div class="water-name">
+			<router-link :to="`/detail/${note.id}`">{{note.name}}</router-link>
+		</div>
 		<div :class="`water-img-` + note.imgList.length" v-if="note.imgList.length != 0">
 			<div class="water-img-item" v-for="item1 in note.imgList" :key="item1">
 				<el-image :src="item1" fit="cover" lazy @load="load" :preview-src-list="note.imgList"></el-image>

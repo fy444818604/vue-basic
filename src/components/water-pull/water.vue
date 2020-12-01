@@ -13,6 +13,7 @@
 			return {
 				currentPage: 1,
 				list: [{
+					id:1,
 					type: 1,
 					time: '01/20',
 					name: '1234',
@@ -23,6 +24,7 @@
 						'https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg',
 					]
 				}, {
+					id:2,
 					type: 2,
 					time: '01/20',
 					name: '2234',
@@ -32,6 +34,7 @@
 						'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
 					]
 				}, {
+					id:3,
 					type: 3,
 					time: '01/20',
 					name: '3234',
@@ -40,6 +43,7 @@
 						'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
 					]
 				}, {
+					id:4,
 					type: 4,
 					time: '01/20',
 					name: '4234',
@@ -49,6 +53,7 @@
 					]
 				}],
 				list1: [{
+					id:1,
 					type: 1,
 					time: '01/20',
 					name: '1234',
@@ -56,6 +61,7 @@
 						'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
 					]
 				}, {
+					id:1,
 					type: 2,
 					time: '01/20',
 					name: '2234',
@@ -65,6 +71,7 @@
 						'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
 					]
 				}, {
+					id:1,
 					type: 3,
 					time: '01/20',
 					name: '3234',
@@ -73,6 +80,7 @@
 						'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
 					]
 				}, {
+					id:1,
 					type: 4,
 					time: '01/20',
 					name: '4234',
@@ -131,5 +139,9 @@
 		align-items: flex-start;
 		flex-wrap: wrap;
 		z-index: 1;
+	}
+	
+	.grid:hover {
+		box-shadow: $shadow;
 	}
 </style>

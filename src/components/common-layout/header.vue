@@ -1,6 +1,6 @@
 <template>
 	<header>
-		<div class="main-box flex-x-center header">
+		<div class="main-box flex-x-center header" :class="fixed?'fixed':''">
 			<router-link :to="'/'">
 				<div class="flex-x-center floating">
 					<img class="auth-photo" :src="require('@/assets/image/123.jpg')" alt="">
@@ -11,11 +11,11 @@
 				</div>
 			</router-link>
 			<ul class="header-menu floating" :style="menuHeight">
-				<li v-for="item in menu" :key="item.url">
+				<li v-for="item in menu" :key="item.url" :class="item.active?'active':''">
 					<router-link :to="item.url">{{item.name}}</router-link>
 				</li>
 			</ul>
-			<div class="floating folder-wrap" @click="folder = !folder">
+			<div class="floating folder-wrap" @click="folder = !folder" v-show="!fixed">
 				<div class="folder" :class="folder?'open':''"></div>
 			</div>
 		</div>
@@ -27,8 +27,9 @@
 		data() {
 			return {
 				folder: false,
-				menuHeight:{
-					width:"1px",
+				fixed: false,
+				menuHeight: {
+					width: "1px",
 				}
 			}
 		},
@@ -38,26 +39,55 @@
 				default () {
 					return [{
 						name: '心情随笔',
-						url: '/note'
+						url: '/note',
+						active: false
 					}, {
 						name: '前端组件',
-						url: '2'
+						url: '/component',
+						active: false
 					}, {
 						name: '我的相册',
-						url: '3'
+						url: '/photos',
+						active: false
 					}, {
 						name: '关于作者',
-						url: '4'
+						url: '4',
+						active: false
 					}, {
 						name: '系统管理',
-						url: '5'
+						url: '5',
+						active: false
 					}]
 				}
 			},
 		},
-		watch:{
-			folder(val){
+		mounted() {
+			this.navItem()
+			let scrollbarEl = this.$root.$children[0].$refs.scrollbar.wrap
+			scrollbarEl.onscroll = () => {
+				let scrollTop = scrollbarEl.scrollTop
+				scrollTop >= 290 ? this.fixed = true : this.fixed = false
+			}
+		},
+		watch: {
+			'$route.path'() {
+				this.navItem()
+			},
+			folder(val) {
 				val ? this.menuHeight.width = "361px" : this.menuHeight.width = "1px"
+			},
+			fixed(val) {
+				if(val) {
+					this.folder = true
+				}
+			}
+		},
+		methods:{
+			navItem() {
+				this.menu.map(v => {
+					if(this.$route.path == v.url) v.active = true
+					else v.active = false
+				})
 			}
 		}
 	}
@@ -93,6 +123,18 @@
 			size: 18px;
 			weight: 600;
 		}
+	}
+	
+	.header-menu>li>a {
+		color: $color2;
+	}
+	
+	.header-menu>li:hover a {
+		color: $color1;
+	}
+	
+	.header-menu>li.active>a {
+		color: $color;
 	}
 
 	.folder-wrap {
@@ -138,26 +180,27 @@
 		background: #53555c;
 		transition: all 0.3s cubic-bezier(0, 0.99, 0.2, 1);
 	}
-	
+
 	.folder.open {
 		background: transparent;
 	}
-	
+
 	.folder.open::before {
 		transform: translateY(0) rotate(45deg);
 		background: #999;
 	}
-	
+
 	.folder.open::after {
 		transform: translateY(0) rotate(-45deg);
 		background: #999;
 	}
-	
-	.folder-wrap:hover .folder.open::after,.folder-wrap:hover .folder.open::before {
+
+	.folder-wrap:hover .folder.open::after,
+	.folder-wrap:hover .folder.open::before {
 		transform: translateY(0) rotate(0deg);
 		background: #53555c;
 	}
-	
+
 	.header-menu {
 		display: flex;
 		overflow: hidden;
@@ -166,13 +209,24 @@
 		width: 1px;
 		transition: width ease-out 0.2s;
 	}
-	
-	.header-menu>li{
+
+	.header-menu>li {
 		padding: 0 15px;
 		display: flex;
 		overflow: hidden;
-		text-overflow:ellipsis;
+		text-overflow: ellipsis;
 		white-space: nowrap;
 		cursor: pointer;
+	}
+
+	.header.fixed {
+		position: fixed;
+		top: 0;
+		left: 50%;
+		z-index: 2;
+		margin: 0;
+		transform: translate(-50%,0);
+		max-width: ($width - 20px);
+		width: ($width - 20px);
 	}
 </style>

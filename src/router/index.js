@@ -31,14 +31,40 @@ const index = {
 		meta: {
 			title: '首页'
 		},
+	},{
+		path: "component",
+		name: "component",
+		component: (resolve) => {
+			require(["../views/demo/list"], resolve);
+		},
+		meta: {
+			title: '组件'
+		},
+	},{
+		path: "photos",
+		name: "photos",
+		component: (resolve) => {
+			require(["../views/photos/list"], resolve);
+		},
+		meta: {
+			title: '相册'
+		},
 	}]
+}
+
+const noteDetail = {
+	path: "/detail/:id",
+	component: (resolve) => {
+		require(["../views/note/detail"], resolve);
+	},
 }
 
 const router = new Router({
 	base: "/",
 	mode: 'history',
 	routes: [
-		index
+		index,
+		noteDetail
 	]
 });
 

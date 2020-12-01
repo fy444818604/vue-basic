@@ -7,7 +7,7 @@
 				</el-tag>
 			</div>
 			<div class="search-wrap">
-				<el-input class="search-input" v-model="name" placeholder="请输入内容" :class="search?'open':''"></el-input>
+				<el-input class="search-input" ref="input" @blur="search = false" @keypress.native.enter="searchData" v-model="name" placeholder="请输入内容" :class="search?'open':''"></el-input>
 				<i class="iconfont icon-search-1" @click="search = !search" v-show="!search"></i>
 			</div>
 		</div>
@@ -43,6 +43,15 @@
 		created() {
 			this.tagInit()
 		},
+		watch:{
+			search(val) {
+				if(val){
+					this.$nextTick(() => {
+						this.$refs.input.focus()
+					})
+				} 
+			}
+		},
 		methods: {
 			tagInit() {
 				this.tags.map((v, i) => {
@@ -50,6 +59,9 @@
 						type: this.enum[i % this.enum.length]
 					})
 				})
+			},
+			searchData() {
+				this.search = false
 			}
 		},
 		components: {
@@ -58,6 +70,14 @@
 	}
 </script>
 
+<style>
+	.el-input__inner{
+		border-top: none;
+		border-left: none;
+		border-right: none;
+		border-radius: 0;
+	}
+</style>
 <style lang="scss" scoped="scoped">
 	.main-body {
 		align-content: flex-start;

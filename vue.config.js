@@ -1,5 +1,6 @@
 const webpack = require("webpack");
 const path = require("path");
+let configScss = require('./style.config')
 
 module.exports = {
 	configureWebpack: {
@@ -11,7 +12,17 @@ module.exports = {
 	},
 	chainWebpack: (config) => {
 		config.resolve.alias
-			.set('@', path.resolve(__dirname, './src'))
+			.set('@', path.resolve(__dirname, './src'));
+		const oneOfsMap = config.module.rule('scss').oneOfs.store;
+		oneOfsMap.forEach(item => {
+			item
+				.use('sass-resources-loader')
+				.loader('sass-resources-loader')
+				.options({
+					resources: './src/config.scss',
+				})
+				.end()
+		})
 	},
 	lintOnSave: true,
 	productionSourceMap: false,
