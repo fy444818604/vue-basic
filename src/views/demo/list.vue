@@ -30,6 +30,16 @@
 					{id:6,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
 					{id:7,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
 					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
+					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
+					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
+					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
+					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
+					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
+					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
+					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
+					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
+					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
+					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
 				]
 			}
 		}
