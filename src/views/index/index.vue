@@ -22,7 +22,7 @@
 		},
 		components: {
 			headerMenu: () => import('@/components/common-layout/header')
-		},
+		}
 	}
 </script>
 

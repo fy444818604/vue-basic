@@ -2,14 +2,14 @@
 	<div class="water-box">
 		<div class="water-box-top">
 			<div :class="`water-type-`+note.type">{{typeList[note.type]}}</div>
-			<div class="water-time">{{note.time}}</div>
+			<div class="water-time">{{note.createTime}}</div>
 		</div>
 		<div class="water-name">
-			<router-link :to="`/detail/${note.id}`">{{note.name}}</router-link>
+			<router-link :to="`/detail/${note.id}`">{{note.title}}</router-link>
 		</div>
-		<div :class="`water-img-` + note.imgList.length" v-if="note.imgList.length != 0">
-			<div class="water-img-item" v-for="item1 in note.imgList" :key="item1">
-				<el-image :src="item1" fit="cover" lazy @load="load" :preview-src-list="note.imgList"></el-image>
+		<div :class="`water-img-` + note.photos.length" v-if="note.photos.length != 0">
+			<div class="water-img-item" v-for="item1 in note.photos" :key="item1.id">
+				<el-image :src="item1.url" fit="cover" @load="load" :preview-src-list="note.photos"></el-image>
 			</div>
 		</div>
 	</div>

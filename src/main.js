@@ -8,7 +8,9 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import "./App.scss";
 import VueParticles from 'vue-particles'
+import * as api from './request/api.js'
 
+Vue.prototype.$api = api;
 Vue.config.productionTip = false
 
 Vue.use(VueRouter);

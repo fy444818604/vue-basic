@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 let configScss = require('./style.config')
-
+console.log(process.env.baseUrl);
 module.exports = {
 	configureWebpack: {
 		plugins: [
