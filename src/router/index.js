@@ -22,7 +22,7 @@ const index = {
 		meta: {
 			title: '笔记'
 		},
-	},{
+	}, {
 		path: "home",
 		name: "home",
 		component: (resolve) => {
@@ -31,7 +31,7 @@ const index = {
 		meta: {
 			title: '首页'
 		},
-	},{
+	}, {
 		path: "component",
 		name: "component",
 		component: (resolve) => {
@@ -40,7 +40,7 @@ const index = {
 		meta: {
 			title: '组件'
 		},
-	},{
+	}, {
 		path: "photos",
 		name: "photos",
 		component: (resolve) => {
@@ -59,12 +59,36 @@ const noteDetail = {
 	},
 }
 
+const componentDetail = {
+	path: "/component/detail/1",
+	component: (resolve) => {
+		require(['../components/demo/detail1'], resolve);
+	},
+}
+
+const componentDetail1 = {
+	path: "/component/detail/2",
+	component: (resolve) => {
+		require(['../components/demo/detail2'], resolve);
+	},
+}
+
+const componentDetail2 = {
+	path: "/component/detail/3",
+	component: (resolve) => {
+		require(['../components/demo/detail3'], resolve);
+	},
+}
+
 const router = new Router({
 	base: "/",
 	mode: 'history',
 	routes: [
 		index,
-		noteDetail
+		noteDetail,
+		componentDetail,
+		componentDetail1,
+		componentDetail2
 	]
 });
 

@@ -2,11 +2,11 @@
 	<ul class="photos-wrap">
 		<li class="floating" v-for="item in list" :key="item.id">
 			<div class="cover-wrap">
-				<img :src="item.cover" alt="">
+				<img :src="item.cover==''?'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg':item.cover" alt="">
 				<div class="photo-tip flex-x-center">
-					<div class="glass" :style="{backgroundImage:`url(${item.cover})`}"></div>
+					<div class="glass" :style="{backgroundImage:`url(${item.cover==''?'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg':item.cover})`}"></div>
 					<i class="iconfont icontupian"></i>
-					<div class="photos-num">11</div>
+					<div class="photos-num">{{item.photos.length}}</div>
 				</div>
 			</div>
 			<div class="photos-msg">
@@ -20,14 +20,19 @@
 	export default {
 		data() {
 			return {
-				list: [
-					{id:1,cover:'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',name:'新建相册'},
-					{id:2,cover:'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',name:'新建相册'},
-					{id:3,cover:'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',name:'新建相册'},
-					{id:4,cover:'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',name:'新建相册'},
-					{id:5,cover:'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',name:'新建相册'},
-					{id:6,cover:'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',name:'新建相册'},
-				]
+				list: []
+			}
+		},
+		created() {
+			this.search()
+		},
+		methods:{
+			search() {
+				this.$api.photoSearch({
+					user:''
+				}).then(res => {
+					this.list = res.data
+				})
 			}
 		}
 	}

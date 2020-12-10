@@ -2,9 +2,9 @@
 	<div>
 		<ul class="card-ul">
 			<li class="floating" v-for="item in list" :key="item.id">
-				<router-link :to="`/component/item/${item.id}`">
-					<div class="card-name">{{item.name}}</div>
-					<div class="card-wrap">{{item.instruction}}</div>
+				<router-link :to="`/component/detail/${item.url}`">
+					<div class="card-name">{{item.title}}</div>
+					<div class="card-wrap">{{item.describe}}</div>
 					<div class="card-tips">
 						<i class="iconfont icon-eyes"></i>
 						<div>123</div>
@@ -21,27 +21,27 @@
 	export default {
 		data() {
 			return {
-				list:[
-					{id:1,name:'聊天室',instruction:'这是一款即时聊天功能组件这是一款即时聊天功能组件这是一款即时聊天功能组件这是一款即时聊天功能组件'},
-					{id:2,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
-					{id:3,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
-					{id:4,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
-					{id:5,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
-					{id:6,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
-					{id:7,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
-					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
-					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
-					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
-					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
-					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
-					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
-					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
-					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
-					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
-					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
-					{id:8,name:'聊天室',instruction:'这是一款即时聊天功能组件'},
-				]
+				current:1,
+				total:1,
+				list:[]
 			}
+		},
+		created() {
+			this.search()
+		},
+		methods:{
+			search() {
+				this.$api.componentSearch({
+					current: this.current,
+					pageSize: 10
+				}).then(res => {
+					this.list = [...this.list,...res.data[0]]
+					this.total = res.data[1]
+				})
+			}
+		},
+		mounted() {
+			
 		}
 	}
 </script>

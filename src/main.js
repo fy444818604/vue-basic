@@ -10,6 +10,18 @@ import "./App.scss";
 import VueParticles from 'vue-particles'
 import * as api from './request/api.js'
 
+import FormMaking from 'form-making'
+import 'form-making/dist/FormMaking.css'
+
+import Avue from '@smallwei/avue';
+import '@smallwei/avue/lib/index.css';
+import AvueFormDesign from '@sscfaith/avue-form-design'
+
+Vue.use(Avue);
+Vue.use(AvueFormDesign)
+
+Vue.use(FormMaking)
+
 Vue.prototype.$api = api;
 Vue.config.productionTip = false
 

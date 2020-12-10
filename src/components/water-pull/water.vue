@@ -66,9 +66,9 @@
 				this.water = new Masonry(cont, {
 					itemSelector: ".grid",
 				})
-				setTimeout(() => {
-					this.adapt()
-				}, 100)
+				// setTimeout(() => {
+				// 	this.adapt()
+				// }, 100)
 			},
 			adapt() {
 				document.querySelector('#particles-js').style.height = document.querySelector('.main-bg').clientHeight + "px"
@@ -80,31 +80,27 @@
 				this.$api.noteSearch(data).then(res => {
 					if(this.currentPage == 1) this.list = res.data[0]
 					else this.list = [...this.list, ...res.data[0]]
+					this.$nextTick(() => {
+						this.waterPull()
+					})
 				})
-				// todo
-				// this.list = [...this.list, ...this.list1]
-				// this.$nextTick(() => {
-				// 	this.show = true
-				// 	this.waterPull()
-				// })
 			}
 		},
 		created() {
 			this.search()
 		},
 		mounted(){
-			this.waterPull()
-			let scrollbarEl = this.$root.$children[0].$refs.scrollbar.wrap
-			// scrollbarEl.onscroll = () => {
-			// 	let scrollTop = scrollbarEl.scrollTop
-			// 	let scrollHeight = scrollbarEl.scrollHeight
-			// 	let clientHeight = window.innerHeight || document.documentElement.clientHeight
-			// 	if (scrollTop >= scrollHeight - clientHeight - 20) {
-			// 		this.show = false
-			// 		this.currentPage++
-			// 		this.search()
-			// 	}
-			// }
+			// let scrollbarEl = this.$root.$children[0].$refs.scrollbar.wrap
+			let scrollbarEl = this.$parent.$parent.$refs.wrap
+			scrollbarEl.onscroll = () => {
+				let scrollTop = scrollbarEl.scrollTop
+				let scrollHeight = scrollbarEl.scrollHeight
+				let clientHeight = window.innerHeight || document.documentElement.clientHeight
+				if (scrollTop >= scrollHeight - clientHeight - 20) {
+					this.currentPage++
+					this.search()
+				}
+			}
 		}
 	}
 </script>

@@ -9,7 +9,7 @@
 		</div>
 		<div :class="`water-img-` + note.photos.length" v-if="note.photos.length != 0">
 			<div class="water-img-item" v-for="item1 in note.photos" :key="item1.id">
-				<el-image :src="item1.url" fit="cover" @load="load" :preview-src-list="note.photos"></el-image>
+				<el-image :src="item1.url" fit="cover" @load="load" :preview-src-list="getArray(note.photos)"></el-image>
 			</div>
 		</div>
 	</div>
@@ -38,6 +38,13 @@
 		methods: {
 			load() {
 				this.$parent.water.layout()
+			},
+			getArray(obj) {
+				let array = []
+				obj.map(v => {
+					array = [...array,v.url]
+				})
+				return array
 			}
 		}
 	}
