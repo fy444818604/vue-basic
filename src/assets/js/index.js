@@ -267,6 +267,7 @@ DrawBoard.prototype.useLineTool = function() {
 				lineWidth: that.toolState.lineWidth,
 				color: that.toolState.color
 			}
+			console.log(that.data[index]);
 			that.render();
 		}
 

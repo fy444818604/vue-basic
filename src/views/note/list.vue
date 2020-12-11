@@ -19,29 +19,14 @@
 	export default {
 		data() {
 			return {
-				tags: [{
-					id: 0,
-					name: '全部'
-				},{
-					id: 1,
-					name: '心情随笔'
-				}, {
-					id: 2,
-					name: '旅行日记'
-				}, {
-					id: 3,
-					name: '工作笔记'
-				}, {
-					id: 4,
-					name: '胡吃海塞'
-				}],
+				tags: [],
 				enum: ['', 'success', 'info', 'warning', 'danger'],
 				search: false,
 				name: ''
 			}
 		},
 		created() {
-			this.tagInit()
+			this.labelSearch()
 		},
 		watch:{
 			search(val) {
@@ -53,11 +38,15 @@
 			}
 		},
 		methods: {
-			tagInit() {
-				this.tags.map((v, i) => {
-					Object.assign(v, {
-						type: this.enum[i % this.enum.length]
+			labelSearch() {
+				this.$api.labelSearch().then(res => {
+					res.data = [{id: 0,name: '全部'},...res.data]
+					res.data.map((v, i) => {
+						Object.assign(v, {
+							type: this.enum[i % this.enum.length]
+						})
 					})
+					this.tags = res.data
 				})
 			},
 			searchData() {

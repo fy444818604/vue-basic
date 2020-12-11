@@ -2,7 +2,7 @@
 	<div class="water-box">
 		<div class="water-box-top">
 			<div :class="`water-type-`+note.type">{{typeList[note.type]}}</div>
-			<div class="water-time">{{note.createTime}}</div>
+			<div class="water-time">{{format(note.createTime)}}</div>
 		</div>
 		<div class="water-name">
 			<router-link :to="`/detail/${note.id}`">{{note.title}}</router-link>
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+	import { dateFormat } from '@/utils/time.js'
 	export default {
 		data() {
 			return {
@@ -45,6 +46,9 @@
 					array = [...array,v.url]
 				})
 				return array
+			},
+			format(val){
+				return dateFormat(new Date(val),'yyyy-MM-dd')
 			}
 		}
 	}
@@ -58,10 +62,11 @@
 
 	.water-box-top {
 		display: flex;
+		align-items: center;
 	}
 
 	.water-type {
-		padding: 0 10px;
+		padding: 3px 10px;
 		color: #ffffff;
 		border-radius: 3px;
 		font-size: 12px;
