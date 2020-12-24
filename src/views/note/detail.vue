@@ -7,7 +7,7 @@
 				<div class="seg"> · </div>
 				<div>{{time}}</div>
 			</div>
-			<div class="note-main">
+			<div class="note-main" v-html="content">
 				
 			</div>
 			<div></div>
@@ -16,12 +16,28 @@
 </template>
 
 <script>
+	import { dateFormat } from '@/utils/time.js'
 	export default {
 		data() {
 			return {
+				id:this.$route.params.id,
 				title:'剪影流觞，光影华年',
 				author: '云淡风轻',
-				time: '2020-12-12'
+				time: '2020-12-12',
+				content: ''
+			}
+		},
+		created() {
+			this.search();
+		},
+		methods:{
+			search() {
+				this.$api.noteSearchById(this.id).then(res => {
+					const value = res.data
+					this.title = value.title
+					this.time = dateFormat(new Date(value.createTime),'yyyy-MM-dd')
+					this.content = value.content
+				})
 			}
 		}
 	}

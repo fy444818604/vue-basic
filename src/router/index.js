@@ -80,6 +80,13 @@ const componentDetail2 = {
 	},
 }
 
+const componentDetail3 = {
+	path: "/component/detail/4",
+	component: (resolve) => {
+		require(['../components/demo/detail4'], resolve);
+	},
+}
+
 const router = new Router({
 	base: "/",
 	mode: 'history',
@@ -88,7 +95,8 @@ const router = new Router({
 		noteDetail,
 		componentDetail,
 		componentDetail1,
-		componentDetail2
+		componentDetail2,
+		componentDetail3
 	]
 });
 

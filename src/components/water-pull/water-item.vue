@@ -1,7 +1,7 @@
 <template>
 	<div class="water-box">
 		<div class="water-box-top">
-			<div :class="`water-type-`+note.type">{{typeList[note.type]}}</div>
+			<div :class="`water-type-`+typeList[note.label.id]">{{note.label.name}}</div>
 			<div class="water-time">{{format(note.createTime)}}</div>
 		</div>
 		<div class="water-name">
@@ -20,12 +20,7 @@
 	export default {
 		data() {
 			return {
-				typeList: {
-					1: '心情随笔',
-					2: '旅行日记',
-					3: '工作笔记',
-					4: '胡吃海塞'
-				}
+				typeList: Object
 			}
 		},
 		props: {
@@ -35,6 +30,9 @@
 					return {}
 				}
 			}
+		},
+		created() {
+			this.labelSearch()
 		},
 		methods: {
 			load() {
@@ -49,7 +47,18 @@
 			},
 			format(val){
 				return dateFormat(new Date(val),'yyyy-MM-dd')
-			}
+			},
+			labelSearch() {
+				if(!this.$parent.$parent.tags){
+					return
+				}
+				let data = this.$parent.$parent.tags.filter(v => {
+					return v.id != 0
+				})
+				data.map((v, i) => {
+					this.typeList[v.id] = (i%4)+1
+				})
+			},
 		}
 	}
 </script>
@@ -93,6 +102,12 @@
 	.water-img-item {
 		display: flex;
 		margin-bottom: 15px;
+		width: 100%;
+		max-height: 200px;
+		
+		/deep/ .el-image {
+			width: 100%;
+		}
 	}
 	
 	.water-img-3>.water-img-item:nth-child(1) {

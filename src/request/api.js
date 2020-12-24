@@ -7,6 +7,7 @@ import Vue from "vue"
 import { get, post, del } from "./http"
 
 export const noteSearch = (params) => get('/note/noteSearch',params)
+export const noteSearchById = params => get(`/note/noteSearchById/${params}`)
 export const componentSearch = (params) => get('/component/search',params)
 export const photoSearch = (params) => get('/photos/search',params)
 export const labelSearch = () => get('/label/search')

@@ -2,16 +2,16 @@
 	<div>
 		<div class="screening floating">
 			<div>
-				<el-tag class="tags" v-for="tag in tags" :key="tag.name" :type="tag.type">
+				<el-tag class="tags" v-for="(tag,index) in tags" :key="tag.name" :type="tag.type" @click="selectTag(index)">
 					{{tag.name}}
 				</el-tag>
 			</div>
 			<div class="search-wrap">
-				<el-input class="search-input" ref="input" @blur="search = false" @keypress.native.enter="searchData" v-model="name" placeholder="请输入内容" :class="search?'open':''"></el-input>
+				<el-input class="search-input" ref="input" @blur="search = false" @keypress.native.enter="searchData" v-model="noteName" placeholder="请输入内容" :class="search?'open':''"></el-input>
 				<i class="iconfont icon-search-1" @click="search = !search" v-show="!search"></i>
 			</div>
 		</div>
-		<waterPull></waterPull>
+		<waterPull ref="water" :title="noteName" :labelId="noteId"></waterPull>
 	</div>
 </template>
 
@@ -22,7 +22,8 @@
 				tags: [],
 				enum: ['', 'success', 'info', 'warning', 'danger'],
 				search: false,
-				name: ''
+				noteName: '',
+				noteId: '0'
 			}
 		},
 		created() {
@@ -51,6 +52,18 @@
 			},
 			searchData() {
 				this.search = false
+				if(this.noteName == ''){
+					return
+				}
+				this.$refs.water.currentPage = 0;
+				this.$refs.water.search()
+			},
+			selectTag(i) {
+				this.noteId = this.tags[i].id;
+				this.$refs.water.currentPage = 0;
+				this.$nextTick(() => {
+					this.$refs.water.search();
+				})
 			}
 		},
 		components: {

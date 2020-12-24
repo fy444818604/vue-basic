@@ -12,49 +12,22 @@
 		props:{
 			type:{
 				type: String,
+				default:''
+			},
+			title: {
+				type: String,
+				default:''
+			},
+			labelId: {
+				type: String,
+				default:'0'
 			}
 		},
 		data() {
 			return {
-				currentPage: 1,
+				currentPage: 0,
 				list: [],
-				list1: [{
-					id:1,
-					type: 1,
-					time: '01/20',
-					name: '1234',
-					imgList: [
-						'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-					]
-				}, {
-					id:1,
-					type: 2,
-					time: '01/20',
-					name: '2234',
-					imgList: [
-						'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
-						'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
-						'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
-					]
-				}, {
-					id:1,
-					type: 3,
-					time: '01/20',
-					name: '3234',
-					imgList: [
-						'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
-						'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
-					]
-				}, {
-					id:1,
-					type: 4,
-					time: '01/20',
-					name: '4234',
-					imgList: [
-						'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
-						'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
-					]
-				}]
+				searchLock:true
 			}
 		},
 		components:{
@@ -75,9 +48,19 @@
 				this.$parent.$parent.$refs.particles.init()
 			},
 			search() {
+				if(!this.searchLock){
+					return
+				}
+				this.currentPage++
+				this.searchLock = false
 				let data = {current: this.currentPage}
-				if(this.type) Object.assign(data,{type:this.type})
+				if(this.labelId != '0') Object.assign(data,{labelId:this.labelId})
+				if(this.title != '') Object.assign(data,{title:this.title})
+				// if(this.title != '' || this.labelId != ''){
+				// 	this.currentPage = 1
+				// }
 				this.$api.noteSearch(data).then(res => {
+					this.searchLock = true
 					if(this.currentPage == 1) this.list = res.data[0]
 					else this.list = [...this.list, ...res.data[0]]
 					this.$nextTick(() => {
@@ -97,7 +80,6 @@
 				let scrollHeight = scrollbarEl.scrollHeight
 				let clientHeight = window.innerHeight || document.documentElement.clientHeight
 				if (scrollTop >= scrollHeight - clientHeight - 20) {
-					this.currentPage++
 					this.search()
 				}
 			}
@@ -115,49 +97,6 @@
 	
 	.grid:hover {
 		box-shadow: $shadow;
+		transform:translateY(-1px);
 	}
 </style>
-<!-- [{
-					id:1,
-					type: 1,
-					time: '01/20',
-					name: '1234',
-					imgList: [
-						'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-						'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
-						'https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg',
-						'https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg',
-					]
-				}, {
-					id:2,
-					type: 2,
-					time: '01/20',
-					name: '2234',
-					imgList: [
-						'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
-						'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
-						'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
-					]
-				}, {
-					id:3,
-					type: 3,
-					time: '01/20',
-					name: '3234',
-					imgList: [
-						'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
-						'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
-					]
-				}, {
-					id:4,
-					type: 4,
-					time: '01/20',
-					name: '4234',
-					imgList: [
-						'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
-						'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
-					]
-				}] -->
-				<!-- {"url":"https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"},
-				    {"url":"https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg"},
-				    {"url":"https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg"},
-				    {"url":"https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg"} -->
