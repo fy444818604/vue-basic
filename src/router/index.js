@@ -83,7 +83,29 @@ const componentDetail2 = {
 const componentDetail3 = {
 	path: "/component/detail/4",
 	component: (resolve) => {
-		require(['../components/demo/detail4'], resolve);
+		require(['../views/tv/index'], resolve);
+	},
+	redirect:'/component/detail/4/active',
+	children:[{
+		path: "active",
+		name: "active",
+		component: (resolve) => {
+			require(["../views/tv/active-list"], resolve);
+		}
+	},{
+		path: "live",
+		name: "live",
+		component: (resolve) => {
+			require(["../views/tv/live"], resolve);
+		}
+	}]
+}
+
+const tvPerson = {
+	path: "/person",
+	name:"person",
+	component: (resolve) => {
+		require(['../views/tv/person'], resolve);
 	},
 }
 
@@ -96,7 +118,8 @@ const router = new Router({
 		componentDetail,
 		componentDetail1,
 		componentDetail2,
-		componentDetail3
+		componentDetail3,
+		tvPerson
 	]
 });
 

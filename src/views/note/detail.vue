@@ -21,9 +21,9 @@
 		data() {
 			return {
 				id:this.$route.params.id,
-				title:'剪影流觞，光影华年',
+				title:'',
 				author: '云淡风轻',
-				time: '2020-12-12',
+				time: '',
 				content: ''
 			}
 		},
@@ -83,5 +83,11 @@
 		font-size: .875rem;
 		line-height: 1.4;
 		color: $color2;
+	}
+	
+	/deep/ .language-css {
+		border: 1px solid #DDDDDD;
+		background-color: #F2F6FC;
+		padding: 10px;
 	}
 </style>

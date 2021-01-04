@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "思源黑体正常_0";
+  src: url("./assets/font/思源黑体正常_0.woff2") format("woff2"),
+       url("./assets/font/思源黑体正常_0.woff") format("woff"),
+       url("./assets/font/思源黑体正常_0.ttf") format("truetype"),
+       url("./assets/font/思源黑体正常_0.eot") format("embedded-opentype"),
+       url("./assets/font/思源黑体正常_0.svg") format("svg");
+}
 * {
   margin: 0;
   padding: 0;
