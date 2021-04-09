@@ -109,6 +109,14 @@ const tvPerson = {
 	},
 }
 
+const test = {
+	path:"/test",
+	name: "test",
+	component: (resolve) => {
+		require(['../views/test'], resolve)
+	}
+}
+
 const router = new Router({
 	base: "/",
 	mode: 'history',
@@ -119,7 +127,8 @@ const router = new Router({
 		componentDetail1,
 		componentDetail2,
 		componentDetail3,
-		tvPerson
+		tvPerson,
+		test
 	]
 });
 

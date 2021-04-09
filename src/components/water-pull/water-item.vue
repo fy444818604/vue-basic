@@ -9,7 +9,7 @@
 		</div>
 		<div :class="`water-img-` + note.photos.length" v-if="note.photos.length != 0">
 			<div class="water-img-item" v-for="item1 in note.photos" :key="item1.id">
-				<el-image :src="item1.url" fit="cover" @load="load" :preview-src-list="getArray(note.photos)"></el-image>
+				<el-image :src="item1.url | urlFormat" fit="cover" @load="load" :preview-src-list="getArray(note.photos)"></el-image>
 			</div>
 		</div>
 	</div>
@@ -20,7 +20,7 @@
 	export default {
 		data() {
 			return {
-				typeList: Object
+				typeList: Object,
 			}
 		},
 		props: {
@@ -28,6 +28,15 @@
 				type: Object,
 				default () {
 					return {}
+				}
+			}
+		},
+		filters:{
+			urlFormat(val) {
+				if(val.indexOf('http') != -1){
+					return val
+				}else {
+					return process.env.VUE_APP_baseUrl + val
 				}
 			}
 		},
@@ -41,7 +50,11 @@
 			getArray(obj) {
 				let array = []
 				obj.map(v => {
-					array = [...array,v.url]
+					if(v.url.indexOf('http') != -1){
+						array = [...array,v.url]
+					}else {
+						array = [...array,process.env.VUE_APP_baseUrl + v.url]
+					}
 				})
 				return array
 			},
